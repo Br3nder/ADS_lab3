@@ -12,12 +12,8 @@ namespace Tests
 	TEST_CLASS(Tests)
 	{
 	public:
-		
-		
 		TEST_METHOD(TestIteratorNLR)
 		{
-
-
 			binaryTree* tree = new binaryTree(8);
 			tree->insert(3);
 			tree->insert(1);
@@ -60,7 +56,7 @@ namespace Tests
 			tree->insert(14);
 			tree->insert(13);
 		}
-		TEST_METHOD(TestRemove)
+		TEST_METHOD(TestLeaf)
 		{
 			binaryTree* tree = new binaryTree(8);
 			tree->insert(3);
@@ -71,9 +67,9 @@ namespace Tests
 			tree->insert(10);
 			tree->insert(14);
 			tree->insert(13);
-			tree->remove(13);
+			tree->remove(1);
 			tree->remove(100);
-			Assert::IsTrue(!tree->contains(13));
+			Assert::IsTrue(!tree->contains(1));
 		}
 		TEST_METHOD(TestContains)
 		{
@@ -87,6 +83,48 @@ namespace Tests
 			tree->insert(14);
 			tree->insert(13);
 			Assert::IsTrue(tree->contains(13) && !tree->contains(100));
+		}
+		TEST_METHOD(TestRoot)
+		{
+			binaryTree* tree = new binaryTree(8);
+			tree->insert(3);
+			tree->insert(1);
+			tree->insert(6);
+			tree->insert(4);
+			tree->insert(7);
+			tree->insert(10);
+			tree->insert(14);
+			tree->insert(13);
+			tree->remove(8);
+			Assert::IsTrue(tree->contains(3) && tree->contains(10));
+		}
+		TEST_METHOD(TestNode2)
+		{
+			binaryTree* tree = new binaryTree(8);
+			tree->insert(3);
+			tree->insert(1);
+			tree->insert(6);
+			tree->insert(4);
+			tree->insert(7);
+			tree->insert(10);
+			tree->insert(14);
+			tree->insert(13);
+			tree->remove(6);
+			Assert::IsTrue(tree->contains(4) && tree->contains(7));
+		}
+		TEST_METHOD(TestNode1)
+		{
+			binaryTree* tree = new binaryTree(8);
+			tree->insert(3);
+			tree->insert(1);
+			tree->insert(6);
+			tree->insert(4);
+			tree->insert(7);
+			tree->insert(10);
+			tree->insert(14);
+			tree->insert(13);
+			tree->remove(14);
+			Assert::IsTrue(tree->contains(13));
 		}
 	};
 }
