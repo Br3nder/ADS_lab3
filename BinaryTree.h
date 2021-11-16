@@ -8,7 +8,6 @@ class binaryTree
 {
 public:
 	int key;
-	class Stack;
 	binaryElement* root;
 	binaryTree(int k) : key(k), root(new binaryElement(key)) {};
 	~binaryTree();
