@@ -4,6 +4,7 @@
 #include "../lab3/iterator.cpp"
 #include "../lab3/queue.cpp"
 #include "../lab3/stack.cpp"
+#include <string>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -12,49 +13,12 @@ namespace Tests
 	TEST_CLASS(Tests)
 	{
 	public:
-		TEST_METHOD(TestIteratorNLR)
-		{
-			binaryTree* tree = new binaryTree(8);
-			tree->insert(3);
-			tree->insert(1);
-			tree->insert(6);
-			tree->insert(4);
-			tree->insert(7);
-			tree->insert(10);
-			tree->insert(14);
-			tree->insert(13);
-			
-			NLRIterator* iterator = new NLRIterator(tree->root);
-			while (iterator->hasNext())
-				iterator->next()->key;
-		}
-		TEST_METHOD(TestIteratorBFS)
-		{
-			binaryTree* tree = new binaryTree(8);
-			tree->insert(3);
-			tree->insert(1);
-			tree->insert(6);
-			tree->insert(4);
-			tree->insert(7);
-			tree->insert(10);
-			tree->insert(14);
-			tree->insert(13);
-
-			BFSIterator* iterator = new BFSIterator(tree->root);
-			while (iterator->hasNext())
-				iterator->next()->key;
-		}
 		TEST_METHOD(TestInsert)
 		{
 			binaryTree* tree = new binaryTree(8);
 			tree->insert(3);
 			tree->insert(1);
-			tree->insert(6);
-			tree->insert(4);
-			tree->insert(7);
-			tree->insert(10);
-			tree->insert(14);
-			tree->insert(13);
+			Assert::IsTrue(tree->contains(8) && tree->contains(3) && tree->contains(1));
 		}
 		TEST_METHOD(TestLeaf)
 		{
@@ -125,6 +89,49 @@ namespace Tests
 			tree->insert(13);
 			tree->remove(14);
 			Assert::IsTrue(tree->contains(13));
+		}
+		TEST_METHOD(TestNLR)
+		{
+			binaryTree* tree = new binaryTree(8);
+			tree->insert(3);
+			tree->insert(1);
+			tree->insert(6);
+			tree->insert(4);
+			tree->insert(7);
+			tree->insert(10);
+			tree->insert(14);
+			tree->insert(13);
+			NLRIterator* iterator = tree->createNLRIterator();
+			int arr[9] = {8, 3, 1, 6, 4, 7, 10, 14, 13}, i = 0;
+			bool isEqual = true;
+			while (iterator->hasNext())
+			{
+				if (iterator->next()->key != arr[i]) isEqual = false;
+				i++;
+			}
+			Assert::IsTrue(isEqual);
+
+		}
+		TEST_METHOD(TestBFS)
+		{
+			binaryTree* tree = new binaryTree(8);
+			tree->insert(3);
+			tree->insert(1);
+			tree->insert(6);
+			tree->insert(4);
+			tree->insert(7);
+			tree->insert(10);
+			tree->insert(14);
+			tree->insert(13);
+			BFSIterator* iterator = tree->createBFSIterator();
+			int arr[9] = {8, 3, 10, 1, 6, 14, 4, 7, 13}, i = 0;
+			bool isEqual = true;
+			while (iterator->hasNext())
+			{
+				if (iterator->next()->key != arr[i]) isEqual = false;
+				i++;
+			}
+			Assert::IsTrue(isEqual);
 		}
 	};
 }
